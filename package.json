@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "seed:products": "tsx scripts/seed-products.ts",
+    "seed:admin": "tsx scripts/seed-admin-user.ts",
     "seed:blog": "tsx scripts/seed-blog-posts.ts"
   },
   "dependencies": {

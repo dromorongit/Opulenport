@@ -30,7 +30,7 @@ const navLinks = [
     children: serviceItems,
   },
   { name: "FAQ", href: "/faq" },
-  { name: "Blog", href: "#" },
+  { name: "Blog", href: "/blog" },
   { name: "Contact Us", href: "/contact" },
 ];
 

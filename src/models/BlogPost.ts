@@ -10,6 +10,7 @@ export interface IBlogPost extends Document {
   category?: string;
   published?: boolean;
   publishedAt?: Date;
+  seedTag?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -18,13 +19,14 @@ const BlogPostSchema = new Schema<IBlogPost>(
   {
     title: { type: String, required: true },
     slug: { type: String, unique: true, required: true },
-    excerpt: { type: String, required: true },
-    content: { type: String, required: true },
-    coverImage: { type: String },
-    author: { type: String, default: "OpulenPort Trading" },
-    category: { type: String },
-    published: { type: Boolean, default: false },
-    publishedAt: { type: Date },
+  excerpt: { type: String, required: true },
+  content: { type: String, required: true },
+  coverImage: { type: String },
+  author: { type: String, default: "OpulenPort Trading" },
+  category: { type: String },
+  published: { type: Boolean, default: false },
+  publishedAt: { type: Date },
+  seedTag: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

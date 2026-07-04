@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed:products": "tsx scripts/seed-products.ts"
+    "seed:products": "tsx scripts/seed-products.ts",
+    "seed:blog": "tsx scripts/seed-blog-posts.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -22,6 +23,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.1",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
     "tailwind-merge": "^2.5.4",
     "zod": "^3.23.8"
   },

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
-import { Menu, X, LayoutDashboard, Package, Briefcase, FileText, MessageSquare, Calendar } from "lucide-react";
+import { Menu, X, LayoutDashboard, Package, Briefcase, FileText, MessageSquare, Calendar, CreditCard, Star, Car, Truck } from "lucide-react";
 
 type AdminShellProps = {
   user?: {
@@ -23,9 +23,13 @@ export default function AdminShell({ user, children }: AdminShellProps) {
     { href: "/admin", label: "Dashboard", icon: LayoutDashboard, disabled: false },
     { href: "/admin/products", label: "Products", icon: Package, disabled: false },
     { href: "/admin/services", label: "Services", icon: Briefcase, disabled: false },
-    { href: "#", label: "Blog", icon: FileText, disabled: true },
-    { href: "#", label: "Inquiries", icon: MessageSquare, disabled: true },
-    { href: "#", label: "Bookings", icon: Calendar, disabled: true },
+    { href: "/admin/blog", label: "Blog", icon: FileText, disabled: false },
+    { href: "/admin/inquiries", label: "Inquiries", icon: MessageSquare, disabled: false },
+    { href: "/admin/vehicle-requests", label: "Vehicle Requests", icon: Car, disabled: false },
+    { href: "/admin/supplier-contact", label: "Supplier Contact", icon: Truck, disabled: false },
+    { href: "/admin/bookings", label: "Bookings", icon: Calendar, disabled: false },
+    { href: "/admin/deposit-payments", label: "Deposit Payments", icon: CreditCard, disabled: false },
+    { href: "/admin/testimonials", label: "Testimonials", icon: Star, disabled: false },
   ];
 
   return (

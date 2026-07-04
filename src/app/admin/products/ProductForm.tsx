@@ -76,10 +76,10 @@ export default function ProductForm({
   });
 
   const { fields: imageFields, append: appendImage, remove: removeImage } =
-    useFieldArray({ control, name: "images" });
+    useFieldArray<FormValues, "images">({ control, name: "images" });
 
   const { fields: specFields, append: appendSpec, remove: removeSpec } =
-    useFieldArray({ control, name: "specs" });
+    useFieldArray<FormValues, "specs">({ control, name: "specs" });
 
   useEffect(() => {
     if (specFields.length === 0) {

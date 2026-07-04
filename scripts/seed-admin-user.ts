@@ -13,10 +13,13 @@ if (!ADMIN_EMAIL || !ADMIN_PASSWORD) {
 }
 
 async function main() {
-  await mongoose.connect(process.env.MONGODB_URI!);
+  if (!process.env.MONGODB_URI) {
+    throw new Error("MONGODB_URI environment variable must be set.");
+  }
+  await mongoose.connect(process.env.MONGODB_URI);
   console.log("Connected to MongoDB");
 
-  const hashedPassword = await bcrypt.hash(ADMIN_PASSWORD, 12);
+  const hashedPassword = await bcrypt.hash(ADMIN_PASSWORD as string, 12);
 
   const update: Record<string, unknown> = {
     passwordHash: hashedPassword,

@@ -51,13 +51,13 @@ export const SERVICE_CATEGORIES = [
     slug: "china-sourcing",
     label: "China Sourcing",
     description:
-      "Specialized procurement from China&apos;s leading markets.",
+      "Specialized procurement from China's leading markets.",
   },
   {
     slug: "dubai-sourcing",
     label: "Dubai Sourcing",
     description:
-      "Premium sourcing through Dubai&apos;s global trade hubs.",
+      "Premium sourcing through Dubai's global trade hubs.",
   },
   {
     slug: "france-sourcing",
@@ -81,3 +81,19 @@ export const SERVICE_CATEGORIES = [
 
 export type ServiceCategorySlug =
   (typeof SERVICE_CATEGORIES)[number]["slug"];
+
+export const WHATSAPP_NUMBERS = [
+  "233538499395",
+  "233597982181",
+] as const;
+
+export type WhatsAppNumber = (typeof WHATSAPP_NUMBERS)[number];
+
+export const WHATSAPP_PRIMARY: WhatsAppNumber = WHATSAPP_NUMBERS[0];
+
+export function buildWhatsAppLink(message?: string): string {
+  const text = message ?? "";
+  return `https://wa.me/${WHATSAPP_PRIMARY}${
+    text ? `?text=${encodeURIComponent(text)}` : ""
+  }`;
+}

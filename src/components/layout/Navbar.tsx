@@ -22,16 +22,16 @@ const serviceItems = [
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "About Us", href: "#" },
+  { name: "About Us", href: "/about" },
   { name: "Products", href: "/products", children: productItems },
   {
     name: "Services",
     href: "/services",
     children: serviceItems,
   },
-  { name: "FAQ", href: "#" },
+  { name: "FAQ", href: "/faq" },
   { name: "Blog", href: "#" },
-  { name: "Contact Us", href: "#" },
+  { name: "Contact Us", href: "/contact" },
 ];
 
 export default function Navbar() {

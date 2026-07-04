@@ -4,16 +4,17 @@ import { Facebook, Instagram, Music } from "lucide-react";
 import NewsletterForm from "@/components/forms/NewsletterForm";
 
 const quickLinks = [
-  { name: "Home", href: "#" },
-  { name: "About Us", href: "#" },
+  { name: "Home", href: "/" },
+  { name: "About Us", href: "/about" },
   { name: "Vehicles", href: "#" },
   { name: "Gold Jewelry", href: "#" },
   { name: "Perfumes", href: "#" },
   { name: "Merchandise", href: "#" },
   { name: "Machinery", href: "#" },
   { name: "Services", href: "#" },
+  { name: "FAQ", href: "/faq" },
   { name: "Blog", href: "#" },
-  { name: "Contact Us", href: "#" },
+  { name: "Contact Us", href: "/contact" },
 ];
 
 const socials = [

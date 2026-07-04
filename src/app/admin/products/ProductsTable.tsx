@@ -9,8 +9,8 @@ type ProductRow = {
   name: string;
   category: string;
   priceGHS?: number;
-  depositRequired: boolean;
-  featured: boolean;
+  depositRequired?: boolean;
+  featured?: boolean;
   status: string;
   images: string[];
 };

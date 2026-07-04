@@ -60,7 +60,7 @@ export default function ServiceForm({ initialData }: ServiceFormProps) {
     defaultValues: {
       name: initialData?.name ?? "",
       slug: initialData?.slug ?? "",
-      category: initialData?.category ?? "sourcing",
+      category: ((initialData?.category as "sourcing" | "logistics" | "vehicle-sourcing" | "china-sourcing" | "dubai-sourcing" | "france-sourcing" | "supplier-verification" | "consultation") ?? "sourcing") as FormValues["category"],
       description: initialData?.description ?? "",
       consultationBookable: initialData?.consultationBookable ?? false,
       consultationFeeGHS: initialData?.consultationFeeGHS ?? null,

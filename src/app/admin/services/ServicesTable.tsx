@@ -8,7 +8,7 @@ type ServiceRow = {
   _id: string;
   name: string;
   category: string;
-  consultationBookable: boolean;
+  consultationBookable?: boolean;
   consultationFeeGHS?: number;
   description?: string;
   icon?: string;

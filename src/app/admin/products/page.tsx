@@ -14,9 +14,9 @@ async function getProducts() {
         name: p.name,
         category: p.category,
         priceGHS: p.priceGHS,
-        depositRequired: p.depositRequired,
-        featured: p.featured,
-        status: p.status,
+        depositRequired: p.depositRequired ?? false,
+        featured: p.featured ?? false,
+        status: p.status ?? "available",
         images: p.images,
       }))
     );

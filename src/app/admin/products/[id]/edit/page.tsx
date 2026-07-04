@@ -4,7 +4,7 @@ import Product from "@/models/Product";
 import ProductForm from "../../ProductForm";
 import { type ProductAdminFormValues } from "@/lib/validations/admin";
 
-async function getProduct(id: string): Promise<ProductAdminFormValues | null> {
+async function getProduct(id: string): Promise<ProductAdminFormValues & { _id: string } | null> {
   await connectDB();
   const product = await Product.findById(id).lean();
 
@@ -14,19 +14,19 @@ async function getProduct(id: string): Promise<ProductAdminFormValues | null> {
     _id: product._id.toString(),
     name: product.name,
     slug: product.slug,
-    category: product.category,
-    description: product.description,
+    category: product.category ?? "vehicles",
+    description: product.description ?? "",
     images: product.images,
     priceGHS: product.priceGHS,
-    priceIsEstimate: product.priceIsEstimate,
-    depositRequired: product.depositRequired,
+    priceIsEstimate: product.priceIsEstimate ?? true,
+    depositRequired: product.depositRequired ?? false,
     depositAmountGHS: product.depositAmountGHS,
-    specs: product.specs ?? {},
-    status: product.status,
-    featured: product.featured,
+    specs: (product.specs ?? {}) as Record<string, string>,
+    status: product.status ?? "available",
+    featured: product.featured ?? false,
     createdAt: product.createdAt,
     updatedAt: product.updatedAt,
-  };
+  } as ProductAdminFormValues & { _id: string };
 }
 
 export default async function EditProductPage({

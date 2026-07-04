@@ -76,10 +76,10 @@ export default function ProductForm({
   });
 
   const { fields: imageFields, append: appendImage, remove: removeImage } =
-    useFieldArray<FormValues, "images">({ control, name: "images" });
+    useFieldArray({ control, name: "images" } as any);
 
   const { fields: specFields, append: appendSpec, remove: removeSpec } =
-    useFieldArray<FormValues, "specs">({ control, name: "specs" });
+    useFieldArray({ control, name: "specs" });
 
   useEffect(() => {
     if (specFields.length === 0) {
@@ -88,15 +88,15 @@ export default function ProductForm({
   }, [specFields.length, appendSpec]);
 
   const onSubmit = async (data: FormValues) => {
-    const payload: ProductAdminFormValues = {
+    const payload = {
       ...data,
       images: data.images.filter((img) => img.trim() !== ""),
-      specs: data.specs.reduce<Record<string, unknown>>((acc, curr) => {
+      specs: data.specs.reduce<Record<string, string>>((acc, curr) => {
         if (curr.key.trim() !== "") {
           acc[curr.key.trim()] = curr.value.trim();
         }
         return acc;
-      }, {}),
+      }, {} as Record<string, string>),
     };
 
     try {

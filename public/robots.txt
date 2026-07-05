@@ -1,0 +1,14 @@
+# OpulenPort Trading - Robots.txt
+# Generated for production SEO
+
+User-agent: *
+Allow: /
+
+# Disallow admin and API routes from public crawlers
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap reference
+# IMPORTANT: Replace PLACEHOLDER_DOMAIN with the actual production domain
+# before launch (e.g., https://opulenport.com)
+Sitemap: https://PLACEHOLDER_DOMAIN/sitemap.xml

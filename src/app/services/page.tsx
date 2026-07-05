@@ -2,6 +2,15 @@ import connectDB from "@/lib/db";
 import Service from "@/models/Service";
 import ServiceCard from "@/components/services/ServiceCard";
 import { SERVICE_CATEGORIES } from "@/lib/constants";
+import type { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return {
+    title: "Services | OpulenPort Trading",
+    description:
+      "From global sourcing to last-mile delivery, our services include vehicle sourcing, logistics, supplier verification, consultation, and specialized sourcing from China, Dubai, and France.",
+  };
+};
 
 export const dynamic = "force-dynamic";
 

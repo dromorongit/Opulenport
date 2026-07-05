@@ -2,6 +2,15 @@ import connectDB from "@/lib/db";
 import Product from "@/models/Product";
 import ProductCard from "@/components/products/ProductCard";
 import { PRODUCT_CATEGORIES } from "@/lib/constants";
+import type { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return {
+    title: "Products | OpulenPort Trading",
+    description:
+      "Explore our 5 product categories: Vehicles, Gold Jewelry, Perfumes, Merchandise, and Machinery — all sourced globally and delivered to Ghana with trusted quality assurance.",
+  };
+};
 
 export const dynamic = "force-dynamic";
 

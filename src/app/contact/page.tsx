@@ -1,9 +1,13 @@
 import QuoteRequestForm from "@/components/forms/QuoteRequestForm";
 import { Facebook, Instagram, Music, MapPin, Phone, Mail } from "lucide-react";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Contact Us | OpulenPort Trading",
-  description: "Get in touch with OpulenPort Trading for vehicle sourcing, gold jewelry, perfumes, machinery, and logistics services.",
+export const generateMetadata = (): Metadata => {
+  return {
+    title: "Contact Us | OpulenPort Trading",
+    description:
+      "Located in Accra, Ghana. Contact us via phone, WhatsApp, email, or our online form for vehicle sourcing, gold jewelry, perfumes, machinery, and logistics services.",
+  };
 };
 
 export default function ContactPage() {

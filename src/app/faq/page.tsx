@@ -1,19 +1,8 @@
-"use client";
-
-import { useState } from "react";
 import FAQAccordion from "@/components/faq/FAQAccordion";
-import { FAQ_ITEMS, FAQ_CATEGORIES, type FAQCategory } from "@/lib/faq-data";
+import { FAQ_ITEMS, FAQ_CATEGORIES } from "@/lib/faq-data";
 import { buildWhatsAppLink } from "@/lib/constants";
 
 export default function FAQPage() {
-  const [activeCategory, setActiveCategory] =
-    useState<FAQCategory>("All");
-
-  const filteredItems =
-    activeCategory === "All"
-      ? FAQ_ITEMS
-      : FAQ_ITEMS.filter((item) => item.category === activeCategory);
-
   return (
     <div className="py-16 sm:py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
@@ -27,23 +16,18 @@ export default function FAQPage() {
 
         <div className="mt-10 flex flex-wrap justify-center gap-2">
           {FAQ_CATEGORIES.map((category) => (
-            <button
+            <a
               key={category}
-              type="button"
-              onClick={() => setActiveCategory(category)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                activeCategory === category
-                  ? "bg-gold text-navy"
-                  : "bg-navy-light text-cream/80 border border-gold/20 hover:border-gold/50"
-              }`}
+              href={`/faq?category=${encodeURIComponent(category)}`}
+              className="rounded-full px-4 py-2 text-sm font-medium transition-colors bg-navy-light text-cream/80 border border-gold/20 hover:border-gold/50"
             >
               {category}
-            </button>
+            </a>
           ))}
         </div>
 
         <div className="mt-10">
-          <FAQAccordion items={filteredItems} />
+          <FAQAccordion items={FAQ_ITEMS} />
         </div>
 
         <div className="mt-16 rounded-xl border border-gold/30 bg-navy-light p-6 sm:p-8 text-center">

@@ -1,5 +1,14 @@
 import Link from "next/link";
 import { Globe, Truck, BadgeCheck, Headphones } from "lucide-react";
+import type { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return {
+    title: "About Us | OpulenPort Trading",
+    description:
+      "OpulenPort Trading bridges Ghanaian businesses and consumers with trusted global suppliers by delivering reliable, transparent, and efficient trade solutions from China, Dubai, France, and beyond.",
+  };
+};
 
 const values = [
   {

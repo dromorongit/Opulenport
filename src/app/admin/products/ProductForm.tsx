@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useFieldArray } from "react-hook-form";
 import { productAdminSchema, type ProductAdminFormValues } from "@/lib/validations/admin";
+import ImageUploader from "@/components/admin/ImageUploader";
 
 const formSchema = z.object({
   name: z.string().min(1, "Product name is required"),
@@ -48,20 +49,14 @@ export default function ProductForm({
   const router = useRouter();
   const isEditing = !!initialData;
 
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setValue,
-  } = useForm<FormValues>({
+  const { register, control, handleSubmit, formState: { errors, isSubmitting }, setValue, watch } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: initialData?.name ?? "",
       slug: initialData?.slug ?? "",
       category: initialData?.category ?? "vehicles",
       description: initialData?.description ?? "",
-      images: initialData?.images?.length ? initialData.images : [""],
+      images: initialData?.images ?? [],
       priceGHS: initialData?.priceGHS ?? null,
       priceIsEstimate: initialData?.priceIsEstimate ?? true,
       depositRequired: initialData?.depositRequired ?? false,
@@ -74,9 +69,6 @@ export default function ProductForm({
       featured: initialData?.featured ?? false,
     },
   });
-
-  const { fields: imageFields, append: appendImage, remove: removeImage } =
-    useFieldArray({ control, name: "images" } as any);
 
   const { fields: specFields, append: appendSpec, remove: removeSpec } =
     useFieldArray({ control, name: "specs" });
@@ -271,33 +263,15 @@ export default function ProductForm({
 
           <div>
             <label className="block text-sm font-medium text-cream mb-2">
-              Images (URLs)
+              Images
             </label>
-            <div className="space-y-2">
-              {imageFields.map((field, index) => (
-                <div key={field.id} className="flex gap-2">
-                  <input
-                    {...register(`images.${index}`)}
-                    placeholder="https://example.com/image.jpg"
-                    className="flex-1 rounded-md border border-gold/20 bg-navy px-3 py-2 text-sm text-cream placeholder:text-cream/50 focus:outline-none focus:ring-2 focus:ring-gold"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeImage(index)}
-                    className="rounded-md border border-rose-500/40 px-3 py-1 text-xs font-semibold text-rose-400 hover:bg-rose-500/10"
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))}
-            </div>
-            <button
-              type="button"
-              onClick={() => appendImage("")}
-              className="mt-2 rounded-md border border-gold/40 px-3 py-1.5 text-xs font-semibold text-gold hover:bg-gold/10"
-            >
-              Add Image URL
-            </button>
+            <ImageUploader
+              value={watch("images") ?? []}
+              onChange={(images) => setValue("images", images as string[])}
+              multiple
+              folder="opulenport/products"
+              maxFiles={5}
+            />
           </div>
 
           <div>

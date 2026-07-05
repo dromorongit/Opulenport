@@ -7,6 +7,7 @@ import { z } from "zod";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { blogPostAdminSchema } from "@/lib/validations/admin";
+import ImageUploader from "@/components/admin/ImageUploader";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -201,19 +202,15 @@ export default function BlogPostForm({ initialData }: BlogPostFormProps) {
 
         <div className="space-y-4">
           <div>
-            <label htmlFor="coverImage" className="block text-sm font-medium text-cream mb-1">
-              Cover Image URL
+            <label className="block text-sm font-medium text-cream mb-1">
+              Cover Image
             </label>
-            <input
-              {...register("coverImage")}
-              id="coverImage"
-              type="url"
-              placeholder="https://example.com/image.jpg"
-              className="w-full rounded-md border border-gold/20 bg-navy px-3 py-2 text-sm text-cream placeholder:text-cream/50 focus:outline-none focus:ring-2 focus:ring-gold"
+            <ImageUploader
+              value={watch("coverImage") ?? ""}
+              onChange={(url) => setValue("coverImage", url as string)}
+              multiple={false}
+              folder="opulenport/blog"
             />
-            {errors.coverImage && (
-              <p className="mt-1 text-xs text-rose-400">{errors.coverImage.message}</p>
-            )}
           </div>
 
           <div>

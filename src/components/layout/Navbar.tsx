@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
+import Image from "next/image";
 import {
   PRODUCT_CATEGORIES,
   SERVICE_CATEGORIES,
@@ -44,9 +45,11 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <a href="#" className="flex-shrink-0">
-            <span className="font-serif text-2xl font-bold text-gold">
-              OpulenPort Trading
-            </span>
+            <img
+              src="/images/opulenportlogo.jpg"
+              alt="OpulenPort Trading"
+              className="h-10 w-auto"
+            />
           </a>
 
           {/* Desktop nav */}

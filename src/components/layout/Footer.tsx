@@ -31,9 +31,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <span className="font-serif text-xl font-bold text-gold">
-              OpulenPort Trading
-            </span>
+            <img
+              src="/images/opulenportlogo.jpg"
+              alt="OpulenPort Trading"
+              className="h-8 w-auto mb-2"
+            />
             <p className="mt-2 text-sm text-cream/80">Trusted Routes, Seamless Delivery</p>
             <p className="mt-4 text-sm text-cream/70">
               Your gateway to premium vehicles, gold jewelry, perfumes, and machinery

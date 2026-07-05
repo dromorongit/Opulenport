@@ -48,9 +48,9 @@ export default function Navbar() {
             <Image
               src="/images/opulenportlogo.jpg"
               alt="OpulenPort Trading"
-              width={200}
-              height={40}
-              className="h-10 w-auto"
+              width={280}
+              height={64}
+              className="h-14 w-auto"
             />
           </a>
 

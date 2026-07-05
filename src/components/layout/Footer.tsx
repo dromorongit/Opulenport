@@ -35,9 +35,9 @@ export default function Footer() {
             <Image
               src="/images/opulenportlogo.jpg"
               alt="OpulenPort Trading"
-              width={200}
-              height={32}
-              className="h-8 w-auto mb-2"
+              width={240}
+              height={48}
+              className="h-12 w-auto mb-2"
             />
             <p className="mt-2 text-sm text-cream/80">Trusted Routes, Seamless Delivery</p>
             <p className="mt-4 text-sm text-cream/70">

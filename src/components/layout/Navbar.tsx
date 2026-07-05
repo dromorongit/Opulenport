@@ -126,15 +126,15 @@ export default function Navbar() {
 
       {/* Mobile drawer */}
       {mobileOpen && (
-        <div className="lg:hidden fixed inset-0 top-16 z-40 bg-navy">
-          <nav className="flex flex-col p-4 gap-2">
+        <div className="lg:hidden fixed inset-0 top-16 z-40 bg-navy-light">
+          <nav className="flex flex-col p-4 gap-2 min-h-[calc(100vh-4rem)]">
             {navLinks.map((link) => (
               <div key={link.name} className="flex flex-col">
                 {link.children ? (
                   <>
                     <button
                       type="button"
-                      className="flex items-center justify-between rounded-md px-3 py-2 text-base font-medium text-gold hover:bg-navy-light"
+                      className="flex items-center justify-between rounded-md px-3 py-2 text-base font-medium text-gold hover:bg-navy"
                       onClick={() =>
                         setActiveDropdown(
                           activeDropdown === link.name ? null : link.name
@@ -150,7 +150,7 @@ export default function Navbar() {
                           <a
                             key={child.name}
                             href={child.href}
-                            className="rounded-md px-3 py-2 text-sm text-cream hover:bg-navy-light hover:text-gold-bright"
+                            className="rounded-md px-3 py-2 text-sm text-cream hover:bg-navy hover:text-gold-bright"
                             onClick={() => setMobileOpen(false)}
                           >
                             {child.name}
@@ -162,7 +162,7 @@ export default function Navbar() {
                 ) : (
                   <a
                     href={link.href}
-                    className="rounded-md px-3 py-2 text-base font-medium text-gold hover:bg-navy-light"
+                    className="rounded-md px-3 py-2 text-base font-medium text-gold hover:bg-navy"
                     onClick={() => setMobileOpen(false)}
                   >
                     {link.name}

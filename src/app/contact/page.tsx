@@ -1,5 +1,6 @@
 import QuoteRequestForm from "@/components/forms/QuoteRequestForm";
-import { Facebook, Instagram, Music, MapPin, Phone, Mail } from "lucide-react";
+import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa";
+import { MapPin, Phone, Mail } from "lucide-react";
 import type { Metadata } from "next";
 
 export const generateMetadata = (): Metadata => {
@@ -91,14 +92,21 @@ export default function ContactPage() {
                     aria-label="Facebook"
                     className="text-gold hover:text-gold-bright"
                   >
-                    <Facebook className="h-6 w-6" />
+                    <FaFacebook className="h-6 w-6" />
                   </a>
                   <a
                     href="#"
                     aria-label="Instagram"
                     className="text-gold hover:text-gold-bright"
                   >
-                    <Instagram className="h-6 w-6" />
+                    <FaInstagram className="h-6 w-6" />
+                  </a>
+                  <a
+                    href="#"
+                    aria-label="TikTok"
+                    className="text-gold hover:text-gold-bright"
+                  >
+                    <FaTiktok className="h-6 w-6" />
                   </a>
                   <a
                     href="https://wa.me/233538499395"
@@ -107,7 +115,7 @@ export default function ContactPage() {
                     aria-label="WhatsApp"
                     className="text-gold hover:text-gold-bright"
                   >
-                    <span className="text-sm font-semibold">WA</span>
+                    <FaWhatsapp className="h-6 w-6" />
                   </a>
                 </div>
               </div>

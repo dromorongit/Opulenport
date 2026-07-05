@@ -1,6 +1,6 @@
 "use client";
 
-import { Facebook, Instagram, Music } from "lucide-react";
+import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa";
 import Image from "next/image";
 import NewsletterForm from "@/components/forms/NewsletterForm";
 
@@ -19,10 +19,10 @@ const quickLinks = [
 ];
 
 const socials = [
-  { name: "Facebook", href: "#", icon: Facebook },
-  { name: "Instagram", href: "#", icon: Instagram },
-  { name: "TikTok", href: "#", icon: Music },
-  { name: "WhatsApp", href: "https://wa.me/233538499395", icon: null },
+  { name: "Facebook", href: "#", icon: FaFacebook },
+  { name: "Instagram", href: "#", icon: FaInstagram },
+  { name: "TikTok", href: "#", icon: FaTiktok },
+  { name: "WhatsApp", href: "https://wa.me/233538499395", icon: FaWhatsapp },
 ];
 
 export default function Footer() {
@@ -108,7 +108,7 @@ export default function Footer() {
                     className="text-gold transition-colors hover:text-gold-bright"
                     aria-label={social.name}
                   >
-                    {Icon ? <Icon className="h-6 w-6" /> : <span className="text-sm font-semibold">WA</span>}
+                    <Icon className="h-6 w-6" />
                   </a>
                 );
               })}

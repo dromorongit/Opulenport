@@ -45,9 +45,11 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <a href="#" className="flex-shrink-0">
-            <img
+            <Image
               src="/images/opulenportlogo.jpg"
               alt="OpulenPort Trading"
+              width={200}
+              height={40}
               className="h-10 w-auto"
             />
           </a>

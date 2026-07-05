@@ -1,6 +1,7 @@
 "use client";
 
 import { Facebook, Instagram, Music } from "lucide-react";
+import Image from "next/image";
 import NewsletterForm from "@/components/forms/NewsletterForm";
 
 const quickLinks = [
@@ -31,9 +32,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <img
+            <Image
               src="/images/opulenportlogo.jpg"
               alt="OpulenPort Trading"
+              width={200}
+              height={32}
               className="h-8 w-auto mb-2"
             />
             <p className="mt-2 text-sm text-cream/80">Trusted Routes, Seamless Delivery</p>

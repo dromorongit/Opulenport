@@ -33,11 +33,8 @@ export default function BookConsultationPage() {
           <p className="mb-2">
             <span className="font-semibold text-gold">Notice required:</span> Bookings must be made at least 24 hours in advance.
           </p>
-          <p>
-            <span className="font-semibold text-gold">Consultation fee:</span> GHS {CONSULTATION_FEE_GHS} per session{" "}
-            <span className="text-cream/50">
-              — confirm with client before launch
-            </span>
+          <p className="mb-2">
+            <span className="font-semibold text-gold">Consultation fee:</span> GHS {CONSULTATION_FEE_GHS} per session
           </p>
         </div>
       </div>

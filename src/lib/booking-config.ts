@@ -89,7 +89,7 @@ export const BOOKING_LEAD_TIME_HOURS = 24;
 
 export const MAX_BOOKING_DAYS_AHEAD = 30;
 
-export const CONSULTATION_FEE_GHS = 100;
+export const CONSULTATION_FEE_GHS = 350;
 
 export function generateTimeSlots(date: Date): string[] {
   const normalized = toUTCMidnight(date);

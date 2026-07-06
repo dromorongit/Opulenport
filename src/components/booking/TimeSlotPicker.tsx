@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 type Props = {
   selectedDate?: string;
@@ -13,24 +13,31 @@ export default function TimeSlotPicker({ selectedDate, refreshKey = 0, onChange 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+  const onChangeRef = useRef(onChange);
+
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
 
   useEffect(() => {
     if (!selectedDate) {
       setSlots([]);
       setSelectedSlot(null);
-      onChange("");
+      onChangeRef.current("");
       return;
     }
 
-    let cancelled = false;
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const dateToFetch = selectedDate;
 
     async function fetchSlots() {
-      if (!selectedDate) return;
       setLoading(true);
       setError(null);
       try {
         const res = await fetch(
-          `/api/consultation-availability?date=${encodeURIComponent(selectedDate)}`
+          `/api/consultation-availability?date=${encodeURIComponent(dateToFetch)}`,
+          { signal }
         );
 
         if (!res.ok) {
@@ -39,33 +46,30 @@ export default function TimeSlotPicker({ selectedDate, refreshKey = 0, onChange 
         }
 
         const available: string[] = await res.json();
-        if (!cancelled) {
-          setSlots(available);
-          setSelectedSlot(null);
-          onChange("");
-        }
+        setSlots(available);
+        setSelectedSlot(null);
+        onChangeRef.current("");
       } catch (err) {
-        if (!cancelled) {
-          setError(err instanceof Error ? err.message : "Failed to load slots");
-          setSlots([]);
+        if (err instanceof DOMException && err.name === "AbortError") {
+          return;
         }
+        setError(err instanceof Error ? err.message : "Failed to load slots");
+        setSlots([]);
       } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
+        setLoading(false);
       }
     }
 
     fetchSlots();
 
     return () => {
-      cancelled = true;
+      controller.abort();
     };
-  }, [selectedDate, refreshKey, onChange]);
+  }, [selectedDate, refreshKey]);
 
   const handleSelect = (slot: string) => {
     setSelectedSlot(slot);
-    onChange(slot);
+    onChangeRef.current(slot);
   };
 
   return (

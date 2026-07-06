@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, XCircle } from "lucide-react";
@@ -55,6 +55,23 @@ export default function ConsultationBookingForm({
 
   const watchedDate = watch("preferredDate");
   const watchedSlot = watch("preferredTimeSlot");
+
+  const handleDateChange = useCallback(
+    (date: string) => {
+      setValue("preferredDate", date, { shouldValidate: true });
+      setSlotConflict(false);
+      setSubmitError(null);
+    },
+    [setValue]
+  );
+
+  const handleSlotChange = useCallback(
+    (slot: string) => {
+      setValue("preferredTimeSlot", slot, { shouldValidate: true });
+      setSlotConflict(false);
+    },
+    [setValue]
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -238,20 +255,13 @@ export default function ConsultationBookingForm({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <DatePicker
           selectedDate={watchedDate}
-          onChange={(date) => {
-            setValue("preferredDate", date, { shouldValidate: true });
-            setSlotConflict(false);
-            setSubmitError(null);
-          }}
+          onChange={handleDateChange}
         />
 
         <TimeSlotPicker
           selectedDate={watchedDate}
           refreshKey={refreshKey}
-          onChange={(slot) => {
-            setValue("preferredTimeSlot", slot, { shouldValidate: true });
-            setSlotConflict(false);
-          }}
+          onChange={handleSlotChange}
         />
       </div>
 

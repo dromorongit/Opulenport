@@ -6,15 +6,20 @@ import { adminRegistrationSchema } from "@/lib/validations/admin";
 import { timingSafeEqual } from "crypto";
 
 function safeTimingCompare(a: string, b: string): boolean {
+  const bufA = Buffer.from(a, "utf8");
+  const bufB = Buffer.from(b, "utf8");
+  if (bufA.length !== bufB.length) {
+    return false;
+  }
   try {
-    return timingSafeEqual(Buffer.from(a, "utf8"), Buffer.from(b, "utf8"));
+    return timingSafeEqual(bufA, bufB);
   } catch {
     return false;
   }
 }
 
 export async function POST(request: NextRequest) {
-  const secret = process.env.ADMIN_REGISTRATION_SECRET ?? "";
+  const secret = (process.env.ADMIN_REGISTRATION_SECRET ?? "").trim();
 
   let body: {
     name: string;
@@ -34,7 +39,20 @@ export async function POST(request: NextRequest) {
 
   const parsed = adminRegistrationSchema.safeParse(body);
 
-  if (!parsed.success || !safeTimingCompare(parsed.data.token, secret)) {
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "Invalid or expired registration link" },
+      { status: 403 }
+    );
+  }
+
+  const submittedToken = parsed.data.token.trim();
+  const tokenLength = submittedToken.length;
+  const secretLength = secret.length;
+
+  console.log(`[DEBUG] Token length: ${tokenLength}, Secret length: ${secretLength}`);
+
+  if (!safeTimingCompare(submittedToken, secret)) {
     return NextResponse.json(
       { error: "Invalid or expired registration link" },
       { status: 403 }

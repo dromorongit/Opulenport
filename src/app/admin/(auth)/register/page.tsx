@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 function RegisterForm({ token }: { token: string }) {
@@ -152,7 +152,7 @@ function RegisterForm({ token }: { token: string }) {
   );
 }
 
-export default function AdminRegisterPage() {
+function RegisterPageContent() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
@@ -181,5 +181,21 @@ export default function AdminRegisterPage() {
         <RegisterForm token={token} />
       </div>
     </div>
+  );
+}
+
+export default function AdminRegisterPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-navy px-4">
+          <div className="text-center">
+            <p className="text-cream/70">Loading...</p>
+          </div>
+        </div>
+      }
+    >
+      <RegisterPageContent />
+    </Suspense>
   );
 }

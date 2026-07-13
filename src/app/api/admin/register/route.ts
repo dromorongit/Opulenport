@@ -19,6 +19,7 @@ function safeTimingCompare(a: string, b: string): boolean {
 }
 
 export async function POST(request: NextRequest) {
+  console.log('REGISTER_DEBUG: handler invoked, method=POST');
   const secret = (process.env.ADMIN_REGISTRATION_SECRET ?? "").trim();
 
   let body: {
@@ -46,13 +47,11 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const submittedToken = parsed.data.token.trim();
-  const tokenLength = submittedToken.length;
-  const secretLength = secret.length;
+  const trimmedSubmittedToken = parsed.data.token.trim();
+  const trimmedEnvSecret = secret;
+  console.log('REGISTER_DEBUG: token check - receivedLength=' + trimmedSubmittedToken.length + ' envLength=' + trimmedEnvSecret.length + ' envSecretExists=' + Boolean(process.env.ADMIN_REGISTRATION_SECRET));
 
-  console.log(`[DEBUG] Token length: ${tokenLength}, Secret length: ${secretLength}`);
-
-  if (!safeTimingCompare(submittedToken, secret)) {
+  if (!safeTimingCompare(trimmedSubmittedToken, trimmedEnvSecret)) {
     return NextResponse.json(
       { error: "Invalid or expired registration link" },
       { status: 403 }

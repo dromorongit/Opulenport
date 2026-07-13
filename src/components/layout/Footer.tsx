@@ -8,14 +8,14 @@ import { SOCIAL_LINKS } from "@/lib/constants";
 const quickLinks = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
-  { name: "Vehicles", href: "#" },
-  { name: "Gold Jewelry", href: "#" },
-  { name: "Perfumes", href: "#" },
-  { name: "Merchandise", href: "#" },
-  { name: "Machinery", href: "#" },
-  { name: "Services", href: "#" },
+  { name: "Vehicles", href: "/products/vehicles" },
+  { name: "Gold Jewelry", href: "/products/gold-jewelry" },
+  { name: "Perfumes", href: "/products/perfumes" },
+  { name: "Merchandise", href: "/products/merchandise" },
+  { name: "Machinery", href: "/products/machinery" },
+  { name: "Services", href: "/services" },
   { name: "FAQ", href: "/faq" },
-  { name: "Blog", href: "#" },
+  { name: "Blog", href: "/blog" },
   { name: "Contact Us", href: "/contact" },
 ];
 

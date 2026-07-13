@@ -97,3 +97,10 @@ export function buildWhatsAppLink(message?: string): string {
     text ? `?text=${encodeURIComponent(text)}` : ""
   }`;
 }
+
+export const SOCIAL_LINKS = {
+  facebook: "#",
+  instagram: "https://www.instagram.com/opulenport_trading/",
+  tiktok: "https://www.tiktok.com/@opulenport_tr",
+  whatsapp: buildWhatsAppLink(),
+} as const;

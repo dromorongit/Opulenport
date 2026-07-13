@@ -3,6 +3,7 @@
 import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa";
 import Image from "next/image";
 import NewsletterForm from "@/components/forms/NewsletterForm";
+import { SOCIAL_LINKS } from "@/lib/constants";
 
 const quickLinks = [
   { name: "Home", href: "/" },
@@ -19,10 +20,10 @@ const quickLinks = [
 ];
 
 const socials = [
-  { name: "Facebook", href: "#", icon: FaFacebook },
-  { name: "Instagram", href: "#", icon: FaInstagram },
-  { name: "TikTok", href: "#", icon: FaTiktok },
-  { name: "WhatsApp", href: "https://wa.me/233538499395", icon: FaWhatsapp },
+  { name: "Facebook", href: SOCIAL_LINKS.facebook, icon: FaFacebook },
+  { name: "Instagram", href: SOCIAL_LINKS.instagram, icon: FaInstagram },
+  { name: "TikTok", href: SOCIAL_LINKS.tiktok, icon: FaTiktok },
+  { name: "WhatsApp", href: SOCIAL_LINKS.whatsapp, icon: FaWhatsapp },
 ];
 
 export default function Footer() {

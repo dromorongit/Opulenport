@@ -6,6 +6,7 @@ Allow: /
 
 # Disallow admin and API routes from public crawlers
 Disallow: /admin/
+Disallow: /admin/register
 Disallow: /api/
 
 # Sitemap reference

@@ -1,5 +1,17 @@
 import { z } from "zod";
 
+export const adminRegistrationSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Valid email is required"),
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .regex(/\d/, "Password must contain at least one number"),
+  token: z.string().min(1, "Registration token is required"),
+});
+
+export type AdminRegistrationFormValues = z.infer<typeof adminRegistrationSchema>;
+
 export const productAdminSchema = z.object({
   name: z.string().min(1, "Product name is required"),
   slug: z

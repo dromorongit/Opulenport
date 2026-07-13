@@ -19,7 +19,6 @@ function safeTimingCompare(a: string, b: string): boolean {
 }
 
 export async function POST(request: NextRequest) {
-  console.log('REGISTER_DEBUG: handler invoked, method=POST');
   const secret = (process.env.ADMIN_REGISTRATION_SECRET ?? "").trim();
 
   let body: {
@@ -31,29 +30,25 @@ export async function POST(request: NextRequest) {
 
   try {
     body = await request.json();
-  } catch (error: unknown) {
-    console.error('REGISTER_DEBUG: caught error ->', error instanceof Error ? error.message : String(error));
+  } catch {
     return NextResponse.json(
-      { error: "Invalid or expired registration link" },
-      { status: 403 }
+      { error: "Invalid request body" },
+      { status: 400 }
     );
   }
 
   const parsed = adminRegistrationSchema.safeParse(body);
 
   if (!parsed.success) {
-    console.error('REGISTER_DEBUG: caught error -> Zod validation failed:', JSON.stringify(parsed.error.issues));
     return NextResponse.json(
-      { error: "Invalid or expired registration link" },
-      { status: 403 }
+      { errors: parsed.error.flatten().fieldErrors },
+      { status: 400 }
     );
   }
 
   const trimmedSubmittedToken = parsed.data.token.trim();
-  const trimmedEnvSecret = secret;
-  console.log('REGISTER_DEBUG: token check - receivedLength=' + trimmedSubmittedToken.length + ' envLength=' + trimmedEnvSecret.length + ' envSecretExists=' + Boolean(process.env.ADMIN_REGISTRATION_SECRET));
 
-  if (!safeTimingCompare(trimmedSubmittedToken, trimmedEnvSecret)) {
+  if (!safeTimingCompare(trimmedSubmittedToken, secret)) {
     return NextResponse.json(
       { error: "Invalid or expired registration link" },
       { status: 403 }

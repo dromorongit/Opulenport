@@ -3,11 +3,14 @@
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
+type FieldErrors = Record<string, string[] | undefined>;
+
 function RegisterForm({ token }: { token: string }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -16,6 +19,7 @@ function RegisterForm({ token }: { token: string }) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
+    setFieldErrors({});
 
     if (password !== confirmPassword) {
       setError("Passwords do not match");
@@ -33,15 +37,20 @@ function RegisterForm({ token }: { token: string }) {
 
       const data = await response.json();
 
+      if (response.status === 400 && data.errors) {
+        setFieldErrors(data.errors);
+        return;
+      }
+
       if (!response.ok) {
         setError(data.error ?? "Registration failed");
-        setIsLoading(false);
         return;
       }
 
       setIsSuccess(true);
     } catch {
       setError("An error occurred. Please try again.");
+    } finally {
       setIsLoading(false);
     }
   };
@@ -82,6 +91,9 @@ function RegisterForm({ token }: { token: string }) {
             className="w-full rounded-md border border-gold/20 bg-navy px-3 py-2 text-sm text-cream placeholder:text-cream/50 focus:outline-none focus:ring-2 focus:ring-gold"
             placeholder="Your name"
           />
+          {fieldErrors.name && (
+            <p className="mt-1 text-xs text-rose-400">{fieldErrors.name[0]}</p>
+          )}
         </div>
 
         <div>
@@ -98,6 +110,9 @@ function RegisterForm({ token }: { token: string }) {
             className="w-full rounded-md border border-gold/20 bg-navy px-3 py-2 text-sm text-cream placeholder:text-cream/50 focus:outline-none focus:ring-2 focus:ring-gold"
             placeholder="admin@example.com"
           />
+          {fieldErrors.email && (
+            <p className="mt-1 text-xs text-rose-400">{fieldErrors.email[0]}</p>
+          )}
         </div>
 
         <div>
@@ -114,6 +129,10 @@ function RegisterForm({ token }: { token: string }) {
             className="w-full rounded-md border border-gold/20 bg-navy px-3 py-2 text-sm text-cream placeholder:text-cream/50 focus:outline-none focus:ring-2 focus:ring-gold"
             placeholder="At least 8 characters with a number"
           />
+          <p className="mt-1 text-xs text-cream/50">At least 8 characters, including one number</p>
+          {fieldErrors.password && (
+            <p className="mt-1 text-xs text-rose-400">{fieldErrors.password[0]}</p>
+          )}
         </div>
 
         <div>

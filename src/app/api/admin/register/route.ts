@@ -31,7 +31,8 @@ export async function POST(request: NextRequest) {
 
   try {
     body = await request.json();
-  } catch {
+  } catch (error: unknown) {
+    console.error('REGISTER_DEBUG: caught error ->', error instanceof Error ? error.message : String(error));
     return NextResponse.json(
       { error: "Invalid or expired registration link" },
       { status: 403 }
@@ -41,6 +42,7 @@ export async function POST(request: NextRequest) {
   const parsed = adminRegistrationSchema.safeParse(body);
 
   if (!parsed.success) {
+    console.error('REGISTER_DEBUG: caught error -> Zod validation failed:', JSON.stringify(parsed.error.issues));
     return NextResponse.json(
       { error: "Invalid or expired registration link" },
       { status: 403 }

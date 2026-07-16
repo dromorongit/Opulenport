@@ -4,6 +4,13 @@ const CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME?.trim();
 const API_KEY = process.env.CLOUDINARY_API_KEY?.trim();
 const API_SECRET = process.env.CLOUDINARY_API_SECRET?.trim();
 
+cloudinary.config({
+  cloud_name: CLOUD_NAME ?? "",
+  api_key: API_KEY ?? "",
+  api_secret: API_SECRET ?? "",
+  signature_algorithm: "sha256",
+});
+
 export function isCloudinaryConfigured(): boolean {
   return !!(CLOUD_NAME && API_KEY && API_SECRET);
 }

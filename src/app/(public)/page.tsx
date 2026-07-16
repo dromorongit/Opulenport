@@ -1,5 +1,6 @@
 import Hero from "@/components/home/Hero";
 import CategoryShowcase from "@/components/home/CategoryShowcase";
+import FeaturedProducts from "@/components/home/FeaturedProducts";
 import ServicesOverview from "@/components/home/ServicesOverview";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import TestimonialsPreview from "@/components/home/TestimonialsPreview";
@@ -12,6 +13,7 @@ export default function Home() {
     <main>
       <Hero />
       <CategoryShowcase />
+      <FeaturedProducts />
       <ServicesOverview />
       <WhyChooseUs />
       <TestimonialsPreview />

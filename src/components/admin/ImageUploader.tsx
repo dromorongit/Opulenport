@@ -118,6 +118,7 @@ export default function ImageUploader({
         `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
         true
       );
+      console.log('CLOUDINARY_DEBUG: uploading with formData fields ->', Array.from(formData.keys()));
       xhr.send(formData);
     });
   };

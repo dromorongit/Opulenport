@@ -20,8 +20,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const folder = body.folder ?? "opulenport";
 
-    const timestamp = Math.floor(Date.now() / 1000);
-    const { signature, apiKey, cloudName } = generateUploadSignature({ folder });
+    const { signature, timestamp, apiKey, cloudName } = generateUploadSignature({ folder });
+
+    console.log('CLOUDINARY_DEBUG: signing params ->', JSON.stringify({ timestamp, folder }));
+    console.log('CLOUDINARY_DEBUG: cloudName=' + cloudName + ' apiKeyLength=' + (process.env.CLOUDINARY_API_KEY?.length ?? 0) + ' apiSecretLength=' + (process.env.CLOUDINARY_API_SECRET?.length ?? 0));
 
     return NextResponse.json({
       signature,

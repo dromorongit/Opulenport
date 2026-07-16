@@ -29,6 +29,15 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 type BlogPostFormProps = {
   initialData?: {
     _id?: string;
@@ -74,16 +83,11 @@ export default function BlogPostForm({ initialData }: BlogPostFormProps) {
   const title = watch("title");
 
   useEffect(() => {
-    if (!isEditing && title && !watch("slug")) {
-      const kebabSlug = title
-        .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, "")
-        .replace(/\s+/g, "-")
-        .replace(/-+/g, "-")
-        .replace(/^-|-$/g, "");
+    if (!isEditing && title) {
+      const kebabSlug = slugify(title);
       setValue("slug", kebabSlug);
     }
-  }, [title, isEditing, setValue, watch]);
+  }, [title, isEditing, setValue]);
 
   const onSubmit = async (data: FormValues) => {
     const payload: Record<string, unknown> = {

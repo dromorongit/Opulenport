@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -39,6 +39,15 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 type NewProductPageProps = {
   initialData?: ProductAdminFormValues & { _id?: string };
 };
@@ -48,6 +57,7 @@ export default function ProductForm({
 }: NewProductPageProps) {
   const router = useRouter();
   const isEditing = !!initialData;
+  const [nameValue, setNameValue] = useState(initialData?.name ?? "");
 
   const { register, control, handleSubmit, formState: { errors, isSubmitting }, setValue, watch } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -78,6 +88,13 @@ export default function ProductForm({
       appendSpec({ key: "", value: "" });
     }
   }, [specFields.length, appendSpec]);
+
+  useEffect(() => {
+    if (!isEditing && nameValue) {
+      const generatedSlug = slugify(nameValue);
+      setValue("slug", generatedSlug);
+    }
+  }, [nameValue, isEditing, setValue]);
 
   const onSubmit = async (data: FormValues) => {
     const payload = {
@@ -135,6 +152,7 @@ export default function ProductForm({
               {...register("name")}
               id="name"
               type="text"
+              onChange={(e) => setNameValue(e.target.value)}
               className="w-full rounded-md border border-gold/20 bg-navy px-3 py-2 text-sm text-cream placeholder:text-cream/50 focus:outline-none focus:ring-2 focus:ring-gold"
             />
             {errors.name && (

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -34,6 +35,15 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 type ServiceFormProps = {
   initialData?: {
     _id?: string;
@@ -50,11 +60,13 @@ type ServiceFormProps = {
 export default function ServiceForm({ initialData }: ServiceFormProps) {
   const router = useRouter();
   const isEditing = !!initialData;
+  const [nameValue, setNameValue] = useState(initialData?.name ?? "");
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setValue,
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -67,6 +79,13 @@ export default function ServiceForm({ initialData }: ServiceFormProps) {
       icon: initialData?.icon ?? "",
     },
   });
+
+  useEffect(() => {
+    if (!isEditing && nameValue) {
+      const generatedSlug = slugify(nameValue);
+      setValue("slug", generatedSlug);
+    }
+  }, [nameValue, isEditing, setValue]);
 
   const onSubmit = async (data: FormValues) => {
     try {
@@ -113,6 +132,7 @@ export default function ServiceForm({ initialData }: ServiceFormProps) {
               {...register("name")}
               id="name"
               type="text"
+              onChange={(e) => setNameValue(e.target.value)}
               className="w-full rounded-md border border-gold/20 bg-navy px-3 py-2 text-sm text-cream placeholder:text-cream/50 focus:outline-none focus:ring-2 focus:ring-gold"
             />
             {errors.name && (

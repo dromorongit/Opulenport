@@ -24,6 +24,11 @@ export const PRODUCT_CATEGORIES = [
     label: "Machinery",
     description: "Reliable industrial and commercial machinery.",
   },
+  {
+    slug: "wigs",
+    label: "Wigs",
+    description: "Premium human hair and quality synthetic wigs, sourced and imported for style and durability.",
+  },
 ] as const;
 
 export type ProductCategorySlug = (typeof PRODUCT_CATEGORIES)[number]["slug"];

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { PRODUCT_CATEGORIES } from "@/lib/constants";
-import { Car, Gem, SprayCan, Package, Cog } from "lucide-react";
+import { Car, Gem, SprayCan, Package, Cog, Scissors } from "lucide-react";
 
 const iconMap: Record<string, React.ElementType> = {
   vehicles: Car,
@@ -10,6 +10,7 @@ const iconMap: Record<string, React.ElementType> = {
   perfumes: SprayCan,
   merchandise: Package,
   machinery: Cog,
+  wigs: Scissors,
 };
 
 export default function CategoryShowcase() {

@@ -25,6 +25,7 @@ const formSchema = z.object({
     "perfumes",
     "merchandise",
     "machinery",
+    "wigs",
   ]),
   description: z.string().optional(),
   images: z.array(z.string()).min(0),
@@ -189,6 +190,7 @@ export default function ProductForm({
               <option value="perfumes">Perfumes</option>
               <option value="merchandise">Merchandise</option>
               <option value="machinery">Machinery</option>
+              <option value="wigs">Wigs</option>
             </select>
             {errors.category && (
               <p className="mt-1 text-xs text-rose-400">{errors.category.message}</p>

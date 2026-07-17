@@ -3,7 +3,7 @@ import mongoose, { Document, Model, Schema } from "mongoose";
 export interface IProduct extends Document {
   name: string;
   slug: string;
-  category: "vehicles" | "gold-jewelry" | "perfumes" | "merchandise" | "machinery";
+  category: "vehicles" | "gold-jewelry" | "perfumes" | "merchandise" | "machinery" | "wigs";
   description?: string;
   images: string[];
   priceGHS?: number;
@@ -24,7 +24,7 @@ const ProductSchema = new Schema<IProduct>(
     slug: { type: String, unique: true, required: true },
     category: {
       type: String,
-      enum: ["vehicles", "gold-jewelry", "perfumes", "merchandise", "machinery"],
+      enum: ["vehicles", "gold-jewelry", "perfumes", "merchandise", "machinery", "wigs"],
       required: true,
     },
     description: { type: String },
